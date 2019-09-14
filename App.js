@@ -6,16 +6,42 @@ import symbolicateStackTrace from 'react-native/Libraries/Core/Devtools/symbolic
 export default function App() {
 
 
-  const [resultText, setResultText] = useState('0')
+  const [resultText, setResultText] = useState('')
+  const [calculationText,setCalculationText] = useState('')
 
+  function numberButtonPressed(text) {
+   // console.log(text)
 
-  function buttonPressed(text) {
-    console.log(text)
+    if(text=='='){
+      return calculateResult(resultText)
+    }
+
     handleResultChange(text)
+     
     
+    
+  }
+
+  function calculateResult(){
+    const text = resultText
+    //now parse this text
   }
   function handleResultChange(text) {
     setResultText(resultText + text)
+  }
+
+  function handleCalculationChange(text){
+    setCalculationText(calculationText+text)
+  }
+  function operate(operation){
+    
+    switch(operation){
+      case 'D':
+        let text2=resultText.split('')
+        console.log(text2)
+        text2.pop()
+        setResultText(text2.join(''))
+    }
   }
 
 
@@ -26,17 +52,17 @@ export default function App() {
     let row = []
     for (let j = 0; j < 3; j++) {
       row.push(
-        <TouchableOpacity style={styles.btn} onPress={() => buttonPressed(nums[i][j])}>
+        <TouchableOpacity style={styles.btn} onPress={() => numberButtonPressed(nums[i][j])}>
           <Text style={styles.btnText}>{nums[i][j]}</Text>
         </TouchableOpacity>)
     }
     rows.push(<View style={styles.row}>{row}</View>)
   }
 
-  let operations = ['+', '-', '*', '/']
+  let operations = ['D','%', '*', '+', '-']
   let ops = []
-  for (let i = 0; i < 4; i++) {
-    ops.push(<TouchableOpacity style={styles.btn}>
+  for (let i = 0; i < 5; i++) {
+    ops.push(<TouchableOpacity style={styles.btn} onPress={() => operate(operations[i])}>
       <Text style={[styles.btnText, styles.white]}>{operations[i]}</Text>
     </TouchableOpacity>)
   }
@@ -50,7 +76,7 @@ export default function App() {
         <Text style={styles.resultText}>{resultText}</Text>
       </View>
       <View style={styles.calculation}>
-        <Text style={styles.calculationText}>121</Text>
+        <Text style={styles.calculationText}>{}</Text>
       </View>
       <View style={styles.buttons}>
         <View style={styles.numbers}>
