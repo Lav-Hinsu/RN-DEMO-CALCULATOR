@@ -12,7 +12,7 @@ export default function App() {
   function numberButtonPressed(text) {
     // console.log(text)
 
-    if (text == '=') {
+    if (text == '=/clr') {
       setResultText('')
       return calculateResult(resultText)
     }
@@ -62,7 +62,7 @@ export default function App() {
   function operate(operation) {
 
     switch (operation) {
-      case 'D':
+      case 'DEL':
         if (resultText == '') return
         let text2 = resultText.split('')
         console.log(text2)
@@ -90,23 +90,23 @@ export default function App() {
 
 
   let rows = []
-  let nums = [[1, 2, 3], [4, 5, 6], [7, 8, 9], ['.', 0, '=']]
+  let nums = [[1, 2, 3], [4, 5, 6], [7, 8, 9], ['.', 0, '=/clr']]
   for (let i = 0; i < 4; i++) {
 
     let row = []
     for (let j = 0; j < 3; j++) {
       row.push(
-        <TouchableOpacity style={styles.btn} onPress={() => numberButtonPressed(nums[i][j])}>
+        <TouchableOpacity key={nums[i][j]} style={styles.btn} onPress={() => numberButtonPressed(nums[i][j])}>
           <Text style={styles.btnText}>{nums[i][j]}</Text>
         </TouchableOpacity>)
     }
-    rows.push(<View style={styles.row}>{row}</View>)
+    rows.push(<View key ={i} style={styles.row}>{row}</View>)
   }
 
-  let operations = ['D', '/', '*', '+', '-']
+  let operations = ['DEL', '/', '*', '+', '-']
   let ops = []
   for (let i = 0; i < 5; i++) {
-    ops.push(<TouchableOpacity style={styles.btn} onPress={() => operate(operations[i])}>
+    ops.push(<TouchableOpacity key={operations[i]}style={styles.btn} onPress={() => operate(operations[i])}>
       <Text style={[styles.btnText, styles.white]}>{operations[i]}</Text>
     </TouchableOpacity>)
   }
@@ -149,13 +149,13 @@ const styles = StyleSheet.create({
   },
   result: {
     flex: 2,
-    backgroundColor: 'red',
+    backgroundColor: 'white',
     justifyContent: 'center',
     alignItems: 'flex-end'
   },
   calculation: {
     flex: 1,
-    backgroundColor: 'green',
+    backgroundColor: 'white',
     justifyContent: 'center',
     alignItems: 'flex-end'
 
@@ -166,21 +166,22 @@ const styles = StyleSheet.create({
   },
   numbers: {
     flex: 3,
-    backgroundColor: 'yellow'
+    backgroundColor: '#434343',
+    
   },
   operations: {
     flex: 1,
     justifyContent: 'space-around',
     alignItems: 'stretch',
-    backgroundColor: 'black'
+    backgroundColor: '#636363'
   },
   calculationText: {
-    fontSize: 24,
-    color: 'white'
+    fontSize: 44,
+    color: 'black'
   },
   resultText: {
-    fontSize: 30,
-    color: 'white'
+    fontSize: 54,
+    color: 'black'
   },
   btn: {
     flex: 1,
@@ -190,7 +191,8 @@ const styles = StyleSheet.create({
 
   },
   btnText: {
-    fontSize: 30
+    fontSize: 30,
+    color:'white'
   },
   white: {
     color: 'white'
