@@ -7,40 +7,84 @@ export default function App() {
 
 
   const [resultText, setResultText] = useState('')
-  const [calculationText,setCalculationText] = useState('')
+  const [calculationText, setCalculationText] = useState('')
 
   function numberButtonPressed(text) {
-   // console.log(text)
+    // console.log(text)
 
-    if(text=='='){
+    if (text == '=') {
+      setResultText('')
       return calculateResult(resultText)
     }
 
     handleResultChange(text)
-     
-    
-    
   }
 
-  function calculateResult(){
+  function validText(text){
+    try{
+    result=eval(text)
+
+    }
+    catch(e)
+    {
+      //console.log(e)
+        setResultText(resultText)
+        return false      
+    }
+  
+    return true
+  }
+
+
+  function calculateResult() {
+    setCalculationText('')
     const text = resultText
-    //now parse this text
+    if (validText(text)) {
+      console.log(text)
+      // BODMAS 
+      console.log(eval(text))
+      let ans = eval(text)
+      setCalculationText(ans)
+      return
+    }
+    else{
+      setCalculationText('Error In Statement ')
+    }
   }
   function handleResultChange(text) {
-    setResultText(resultText + text)
+    setResultText(resultText + text )
   }
 
-  function handleCalculationChange(text){
-    setCalculationText(calculationText+text)
+  function handleCalculationChange(text) {
+    setCalculationText('')
+    setCalculationText(calculationText + text)
   }
-  function operate(operation){
-    
-    switch(operation){
+  function operate(operation) {
+
+    switch (operation) {
       case 'D':
-        let text2=resultText.split('')
+        if (resultText == '') return
+        let text2 = resultText.split('')
         console.log(text2)
         text2.pop()
         setResultText(text2.join(''))
+        break
+      case '+':
+        if (resultText == '') return
+        setResultText(resultText + operation)
+        break
+      case '-':
+        if (resultText == '') return
+        setResultText(resultText + operation)
+        break
+      case '*':
+        if (resultText == '') return
+        setResultText(resultText + operation)
+        break
+      case '/':
+        if (resultText == '') return
+        setResultText(resultText + operation)
+        break
     }
   }
 
@@ -59,7 +103,7 @@ export default function App() {
     rows.push(<View style={styles.row}>{row}</View>)
   }
 
-  let operations = ['D','%', '*', '+', '-']
+  let operations = ['D', '/', '*', '+', '-']
   let ops = []
   for (let i = 0; i < 5; i++) {
     ops.push(<TouchableOpacity style={styles.btn} onPress={() => operate(operations[i])}>
@@ -76,7 +120,7 @@ export default function App() {
         <Text style={styles.resultText}>{resultText}</Text>
       </View>
       <View style={styles.calculation}>
-        <Text style={styles.calculationText}>{}</Text>
+        <Text style={styles.calculationText}>{calculationText}</Text>
       </View>
       <View style={styles.buttons}>
         <View style={styles.numbers}>
