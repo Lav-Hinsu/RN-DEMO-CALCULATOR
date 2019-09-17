@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
-import { setLightEstimationEnabled } from 'expo/build/AR';
-import symbolicateStackTrace from 'react-native/Libraries/Core/Devtools/symbolicateStackTrace';
 
 export default function App() {
 
@@ -20,18 +18,17 @@ export default function App() {
     handleResultChange(text)
   }
 
-  function validText(text){
-    try{
-    result=eval(text)
+  function validText(text) {
+    try {
+      result = eval(text)
 
     }
-    catch(e)
-    {
+    catch (e) {
       //console.log(e)
-        setResultText(resultText)
-        return false      
+      setResultText(resultText)
+      return false
     }
-  
+
     return true
   }
 
@@ -47,12 +44,12 @@ export default function App() {
       setCalculationText(ans)
       return
     }
-    else{
+    else {
       setCalculationText('Error In Statement ')
     }
   }
   function handleResultChange(text) {
-    setResultText(resultText + text )
+    setResultText(resultText + text)
   }
 
   function handleCalculationChange(text) {
@@ -100,13 +97,13 @@ export default function App() {
           <Text style={styles.btnText}>{nums[i][j]}</Text>
         </TouchableOpacity>)
     }
-    rows.push(<View key ={i} style={styles.row}>{row}</View>)
+    rows.push(<View key={i} style={styles.row}>{row}</View>)
   }
 
   let operations = ['DEL', '/', '*', '+', '-']
   let ops = []
   for (let i = 0; i < 5; i++) {
-    ops.push(<TouchableOpacity key={operations[i]}style={styles.btn} onPress={() => operate(operations[i])}>
+    ops.push(<TouchableOpacity key={operations[i]} style={styles.btn} onPress={() => operate(operations[i])}>
       <Text style={[styles.btnText, styles.white]}>{operations[i]}</Text>
     </TouchableOpacity>)
   }
@@ -167,7 +164,7 @@ const styles = StyleSheet.create({
   numbers: {
     flex: 3,
     backgroundColor: '#434343',
-    
+
   },
   operations: {
     flex: 1,
@@ -192,7 +189,7 @@ const styles = StyleSheet.create({
   },
   btnText: {
     fontSize: 30,
-    color:'white'
+    color: 'white'
   },
   white: {
     color: 'white'
